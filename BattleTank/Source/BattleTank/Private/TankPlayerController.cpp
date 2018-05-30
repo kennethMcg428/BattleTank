@@ -8,16 +8,17 @@ void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	auto ControledTank = GetControlledTank();
+	auto ControlledTank = GetControlledTank();
+	FString TankName = ControlledTank->GetName();
 
 	//UE_LOG(LogTemp, Warning, TEXT("PlayerControler Begin Play"));
-	if (!ControledTank)
+	if (!ControlledTank)
 	{
 		UE_LOG(LogTemp, Error, TEXT("No Tank is being Controlled"));
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Tank is being Controlled"));
+		UE_LOG(LogTemp, Warning, TEXT("TankPlayerController is possessing %s"), *TankName);
 	}
 
 }
