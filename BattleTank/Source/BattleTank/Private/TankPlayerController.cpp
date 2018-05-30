@@ -4,12 +4,26 @@
 
 
 
-//ATank* ATankPlayerController::GetControlledTank();
-//{
-//	return Cast<ATank>(GetPawn());
-//}
+void ATankPlayerController::BeginPlay()
+{
+	Super::BeginPlay();
 
-ATank * ATankPlayerController::GetControlledTank()
+	auto ControledTank = GetControlledTank();
+
+	//UE_LOG(LogTemp, Warning, TEXT("PlayerControler Begin Play"));
+	if (!ControledTank)
+	{
+		UE_LOG(LogTemp, Error, TEXT("No Tank is being Controlled"));
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Tank is being Controlled"));
+	}
+
+}
+
+
+ATank * ATankPlayerController::GetControlledTank()const
 {
 	return Cast<ATank>(GetPawn());
 }
