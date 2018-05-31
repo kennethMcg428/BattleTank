@@ -3,20 +3,31 @@
 #include "TankAIController.h"
 
 
+
+
 void ATankAIController::BeginPlay()
 {
 	Super::BeginPlay();
 
 	auto ControlledTank = GetControlledTank();
+	auto PlayerTank = GetPlayerTank();
 	FString TankName = ControlledTank->GetName();
-
+	FString PlayerName = PlayerTank->GetName();
 	if (!ControlledTank)
 	{
 		UE_LOG(LogTemp,Error,TEXT("TankAIController is not Possesing Tank"))
 	}
 	else
 	{
-		UE_LOG(LogTemp,Warning,TEXT("TankAIController is possessing %s"), *TankName)
+		UE_LOG(LogTemp,Warning,TEXT("%s is possessing %s"),*GetName(), *TankName)
+	}
+	if (!PlayerTank)
+	{
+		UE_LOG(LogTemp,Error,TEXT("%s cannot find PlayerControlledTank"), *GetName())
+	}
+	else
+	{
+		UE_LOG(LogTemp,Warning,TEXT("%s successfully found PlayerControlledTank : %s"), *GetName(), *PlayerName)
 	}
 
 }
@@ -26,3 +37,8 @@ ATank * ATankAIController::GetControlledTank() const
 	return Cast<ATank>(GetPawn());
 }
 
+ATank * ATankAIController::GetPlayerTank() const
+{
+	if (!Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn())) { return nullptr; }
+	else {return Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());}
+}

@@ -10,7 +10,7 @@ void ATankPlayerController::BeginPlay()
 
 	auto ControlledTank = GetControlledTank();
 	FString TankName = ControlledTank->GetName();
-
+	
 	//UE_LOG(LogTemp, Warning, TEXT("PlayerControler Begin Play"));
 	if (!ControlledTank)
 	{
@@ -18,7 +18,7 @@ void ATankPlayerController::BeginPlay()
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("TankPlayerController is possessing %s"), *TankName);
+		UE_LOG(LogTemp, Warning, TEXT("%s is possessing %s"),*GetName(), *TankName);
 	}
 
 }
