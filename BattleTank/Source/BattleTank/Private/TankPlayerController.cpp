@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TankPlayerController.h"
+#define OUT
 
 void ATankPlayerController::Tick(float DeltaTime)
 {
@@ -48,8 +49,18 @@ void ATankPlayerController::AimTowardsCrosshair()
 	
 }
 // get world location from line trace through crosshair - true if hits landscape
-bool ATankPlayerController::GetSightRayHitLocation(FVector &HitLocation)const
+bool ATankPlayerController::GetSightRayHitLocation(FVector OUT&HitLocation)const
 { 
-	HitLocation = FVector(1.0f);
+	int32 VeiwportSizeX, VeiwportSizeY;
+	GetViewportSize(VeiwportSizeX, VeiwportSizeY);
+
+	FVector2D ScreenLocation(CrosshairXLocation*VeiwportSizeX,
+		CrosshairYLocation*VeiwportSizeY);
+
+	//DeprojectScreenPositionToWorld(CrosshairXLocation, CrosshairYLocation, HitLocation);
+
+	//find crosshair position
+	// "deproject" screen position of crosshair into world direction
+	//line trace along look direction, see what is hit(up to max range)
 	return true;
 }
