@@ -23,7 +23,7 @@ private:
 	virtual void BeginPlay() override;
 	void AimTowardsCrosshair();
 	bool GetSightRayHitLocation(FVector OUT&HitLocation)const;
-
+	bool GetLookDirection(FVector2D SreenLocation, FVector& LookDirection)const;
 	UPROPERTY(EditAnywhere)
 		float CrosshairXLocation = 0.5f;
 

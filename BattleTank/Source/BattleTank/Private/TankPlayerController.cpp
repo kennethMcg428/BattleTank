@@ -49,18 +49,28 @@ void ATankPlayerController::AimTowardsCrosshair()
 	
 }
 // get world location from line trace through crosshair - true if hits landscape
-bool ATankPlayerController::GetSightRayHitLocation(FVector OUT&HitLocation)const
+bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation)const
 { 
 	int32 VeiwportSizeX, VeiwportSizeY;
 	GetViewportSize(VeiwportSizeX, VeiwportSizeY);
-
-	FVector2D ScreenLocation(CrosshairXLocation*VeiwportSizeX,
+	
+	FVector LookDirection;
+	auto ScreenLocation = FVector2D(CrosshairXLocation*VeiwportSizeX,
 		CrosshairYLocation*VeiwportSizeY);
-
-	//DeprojectScreenPositionToWorld(CrosshairXLocation, CrosshairYLocation, HitLocation);
-
-	//find crosshair position
-	// "deproject" screen position of crosshair into world direction
-	//line trace along look direction, see what is hit(up to max range)
+	
+	if (GetLookDirection(ScreenLocation, LookDirection))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Look Direction: %s"), *LookDirection.ToString())
+	}
+		//line trace along look direction, see what is hit(up to max range)
 	return true;
+}
+bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection)const
+{
+	FVector CameraWorldPosision;//to be discarded
+	return DeprojectScreenPositionToWorld(
+		ScreenLocation.X,
+		ScreenLocation.Y,
+		CameraWorldPosision,
+		LookDirection);
 }
