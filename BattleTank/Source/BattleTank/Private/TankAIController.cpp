@@ -6,12 +6,7 @@
 void ATankAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	bDoesTick = true;
-	if (!bDidLog && bDoesTick)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Tick is active on %s"), *GetName())
-			bDidLog = true;
-	}
+	GetControlledTank()->AimAt(GetPlayerTank()->GetActorLocation());
 }
 
 void ATankAIController::BeginPlay()

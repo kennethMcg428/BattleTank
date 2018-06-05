@@ -3,6 +3,8 @@
 #pragma once
 
 #include "Tank.h"
+#include "CollisionQueryParams.h"
+#include "Engine/World.h"
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
@@ -22,8 +24,13 @@ private:
 	virtual void Tick(float DeltaTime)override;
 	virtual void BeginPlay() override;
 	void AimTowardsCrosshair();
-	bool GetSightRayHitLocation(FVector OUT&HitLocation)const;
+	bool GetSightRayHitLocation(FVector& HitLocation)const;
 	bool GetLookDirection(FVector2D SreenLocation, FVector& LookDirection)const;
+	bool GetLookVectorHitLocation(FVector LookDirection, FVector& HitLocation)const;
+
+	UPROPERTY(EditAnywhere)
+		float Range = 1000000;
+
 	UPROPERTY(EditAnywhere)
 		float CrosshairXLocation = 0.5f;
 
