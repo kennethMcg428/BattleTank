@@ -2,9 +2,12 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "GameFramework/Pawn.h"
-#include "Tank.generated.h"
+
+#include "TankAimingComponent.h"
+
+#include "CoreMinimal.h"//			the order of these three includes 
+#include "GameFramework/Pawn.h"//	is very important for
+#include "Tank.generated.h"//		the structure of Unreal Engine
 
 UCLASS()
 class BATTLETANK_API ATank : public APawn
@@ -18,6 +21,8 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+protected:
+	UTankAimingComponent * TankAimingComponent = nullptr;
 
 public:	
 	// Called every frame
@@ -25,7 +30,9 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	void AimAt(FVector HitLocation);
 	
+	void AimAt(FVector HitLocation);
+
+	UTankAimingComponent *  GetAimingComponent();
 	
 };
