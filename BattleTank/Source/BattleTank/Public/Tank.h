@@ -4,6 +4,7 @@
 
 
 #include "TankAimingComponent.h"
+#include "Classes/Components/StaticMeshComponent.h"
 
 #include "CoreMinimal.h"//			the order of these three includes 
 #include "GameFramework/Pawn.h"//	is very important for
@@ -17,6 +18,11 @@ class BATTLETANK_API ATank : public APawn
 public:
 	// Sets default values for this pawn's properties
 	ATank();
+	UTankAimingComponent *  GetAimingComponent();
+	void AimAt(FVector HitLocation);
+
+	UFUNCTION(BlueprintCallable, Category = Setup)
+	void SetBarrelReference(UStaticMeshComponent * BarrelToSet);
 
 protected:
 	// Called when the game starts or when spawned
@@ -24,15 +30,15 @@ protected:
 protected:
 	UTankAimingComponent * TankAimingComponent = nullptr;
 
-public:	
+private:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	
-	void AimAt(FVector HitLocation);
+	
 
-	UTankAimingComponent *  GetAimingComponent();
+	
 	
 };
