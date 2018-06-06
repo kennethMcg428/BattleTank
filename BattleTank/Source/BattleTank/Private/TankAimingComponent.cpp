@@ -2,6 +2,11 @@
 
 #include "TankAimingComponent.h"
 
+#include "TankBarrel.h"
+#include "Engine/World.h"
+#include "Classes/Components/StaticMeshComponent.h"
+#include "Classes/Kismet/GameplayStatics.h"
+#include "Classes/Kismet/GameplayStaticsTypes.h"
 
 // Sets default values for this component's properties
 UTankAimingComponent::UTankAimingComponent()
@@ -13,7 +18,7 @@ UTankAimingComponent::UTankAimingComponent()
 	// ...
 }
 
-void UTankAimingComponent::SetBarrelReference(UStaticMeshComponent* BarrelToSet)
+void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet)
 {
 	Barrel = BarrelToSet;
 }
@@ -45,23 +50,32 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 	//Calculate the OutLaunchVelocity
 
 
-	if (UGameplayStatics::SuggestProjectileVelocity
+	bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity
 	(
 		this,
 		OutLaunchVelocity,
 		StartLocation,
 		HitLocation,
 		LaunchSpeed,
-		false,
-		0,
-		0,
 		ESuggestProjVelocityTraceOption::DoNotTrace
-	))
+	);
+	if(bHaveAimSolution)
 	{
-		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
-		auto TankName = GetOwner()->GetName();
-		UE_LOG(LogTemp, Warning, TEXT("%s is aiming at %s"),*TankName, *AimDirection.ToString())
+		auto AimDirection = OutLaunchVelocity;
+		MoveBarrel(AimDirection);
 	}
 	
+
+}
+void UTankAimingComponent::MoveBarrel(FVector AimDirection)
+{
+		//rotate turret to aim to match camera azumuth
+		//raise or lower barrel for projectile arc
+	auto BarrelRotation = Barrel->GetForwardVector().Rotation();
+	auto AimRotator = AimDirection.Rotation();
+	auto DeltaRotator = AimRotator - BarrelRotation;
+	UE_LOG(LogTemp, Warning, TEXT("AimAsRotator: %s"), *DeltaRotator.ToString())
+
+	//Barrel->Elavate(5);
 
 }

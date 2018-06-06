@@ -4,11 +4,12 @@
 
 
 #include "TankAimingComponent.h"
-#include "Classes/Components/StaticMeshComponent.h"
 
 #include "CoreMinimal.h"//			the order of these three includes 
 #include "GameFramework/Pawn.h"//	is very important for
 #include "Tank.generated.h"//		the structure of Unreal Engine
+
+//class UTankBarrel;
 
 UCLASS()
 class BATTLETANK_API ATank : public APawn
@@ -22,7 +23,7 @@ public:
 	void AimAt(FVector HitLocation);
 
 	UFUNCTION(BlueprintCallable, Category = Setup)
-	void SetBarrelReference(UStaticMeshComponent * BarrelToSet);
+	void SetBarrelReference(UTankBarrel* BarrelToSet);
 
 protected:
 	// Called when the game starts or when spawned
