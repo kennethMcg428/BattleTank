@@ -4,6 +4,8 @@
 #include "TankPlayerController.h"
 
 #define OUT
+
+#include "Tank.h"
 #include "CollisionQueryParams.h"
 #include "Engine/World.h"
 

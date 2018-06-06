@@ -2,14 +2,11 @@
 
 #pragma once
 
-
-#include "TankAimingComponent.h"
-
 #include "CoreMinimal.h"//			the order of these three includes 
 #include "GameFramework/Pawn.h"//	is very important for
 #include "Tank.generated.h"//		the structure of Unreal Engine
 
-//class UTankBarrel;
+class UTankAimingComponent;
 
 UCLASS()
 class BATTLETANK_API ATank : public APawn

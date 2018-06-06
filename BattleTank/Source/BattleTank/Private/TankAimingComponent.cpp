@@ -57,14 +57,24 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 		StartLocation,
 		HitLocation,
 		LaunchSpeed,
+		false,
+		0,
+		0,
 		ESuggestProjVelocityTraceOption::DoNotTrace
 	);
 	if(bHaveAimSolution)
 	{
 		auto AimDirection = OutLaunchVelocity;
 		MoveBarrel(AimDirection);
+		auto Time = GetWorld()->GetTimeSeconds();
+		UE_LOG(LogTemp, Warning, TEXT("%f Elevate called at %f"), Time)
+
 	}
-	
+	else
+	{
+		auto Time = GetWorld()->GetTimeSeconds();
+		UE_LOG(LogTemp, Warning, TEXT("%f No solution found"), Time)
+	}
 
 }
 void UTankAimingComponent::MoveBarrel(FVector AimDirection)
@@ -76,6 +86,6 @@ void UTankAimingComponent::MoveBarrel(FVector AimDirection)
 	auto DeltaRotator = AimRotator - BarrelRotation;
 	UE_LOG(LogTemp, Warning, TEXT("AimAsRotator: %s"), *DeltaRotator.ToString())
 
-	//Barrel->Elavate(5);
+	Barrel->Elavate(DeltaRotator.Pitch);
 
 }
