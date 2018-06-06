@@ -4,6 +4,8 @@
 
 #include "Engine/World.h"
 #include "Classes/Components/StaticMeshComponent.h"
+#include "Classes/Kismet/GameplayStatics.h"
+#include "Classes/Kismet/GameplayStaticsTypes.h"
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
@@ -27,7 +29,7 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-	void AimAt(FVector HitLocation);
+	void AimAt(FVector HitLocation, float LaunchSpeed);
 
 	void SetBarrelReference(UStaticMeshComponent* BarrelToSet);
 
